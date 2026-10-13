@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Search, Bus, Users, Clock, Banknote } from 'lucide-react';
+import { Search, Bus, Users, Clock, Route } from 'lucide-react';
 
 const trips = [
-  { id: 'TRP-0842', bus: '104-B', route: 'Campus → Gazipur Chowrasta', helper: 'Karim Hossain', date: '6 Jul 2026', startTime: '6:15 AM', endTime: '7:08 AM', duration: '53 min', passengers: 42, revenue: 630, status: 'Completed' },
-  { id: 'TRP-0841', bus: '101-A', route: 'Mirpur → Campus', helper: 'Rahim Uddin', date: '6 Jul 2026', startTime: '6:30 AM', endTime: '7:55 AM', duration: '85 min', passengers: 38, revenue: 570, status: 'Completed' },
-  { id: 'TRP-0840', bus: '102-B', route: 'Uttara → Campus', helper: 'Salam Khan', date: '6 Jul 2026', startTime: '6:45 AM', endTime: '8:20 AM', duration: '95 min', passengers: 45, revenue: 900, status: 'Completed' },
-  { id: 'TRP-0839', bus: '103-C', route: 'Dhanmondi → Campus', helper: 'Jamal Hossain', date: '6 Jul 2026', startTime: '7:00 AM', endTime: '8:40 AM', duration: '100 min', passengers: 29, revenue: 725, status: 'Completed' },
-  { id: 'TRP-0838', bus: '104-B', route: 'Gazipur → Campus', helper: 'Karim Hossain', date: '5 Jul 2026', startTime: '6:10 AM', endTime: '7:05 AM', duration: '55 min', passengers: 44, revenue: 660, status: 'Completed' },
-  { id: 'TRP-0837', bus: '101-A', route: 'Mirpur → Campus', helper: 'Rahim Uddin', date: '5 Jul 2026', startTime: '6:28 AM', endTime: '7:52 AM', duration: '84 min', passengers: 40, revenue: 600, status: 'Completed' },
-  { id: 'TRP-0836', bus: '106-E', route: 'Tongi → Campus', helper: 'Hafiz Rahman', date: '5 Jul 2026', startTime: '7:00 AM', endTime: '—', duration: '—', passengers: 0, revenue: 0, status: 'Cancelled' },
+  { id: 'TRP-0842', bus: '104-B', route: 'Campus → Gazipur Chowrasta', helper: 'Karim Hossain', date: '6 Jul 2026', startTime: '6:15 AM', endTime: '7:08 AM', duration: '53 min', passengers: 42, distance: 26, status: 'Completed' },
+  { id: 'TRP-0841', bus: '101-A', route: 'Mirpur → Campus', helper: 'Rahim Uddin', date: '6 Jul 2026', startTime: '6:30 AM', endTime: '7:55 AM', duration: '85 min', passengers: 38, distance: 18, status: 'Completed' },
+  { id: 'TRP-0840', bus: '102-B', route: 'Uttara → Campus', helper: 'Salam Khan', date: '6 Jul 2026', startTime: '6:45 AM', endTime: '8:20 AM', duration: '95 min', passengers: 45, distance: 24, status: 'Completed' },
+  { id: 'TRP-0839', bus: '103-C', route: 'Dhanmondi → Campus', helper: 'Jamal Hossain', date: '6 Jul 2026', startTime: '7:00 AM', endTime: '8:40 AM', duration: '100 min', passengers: 29, distance: 16, status: 'Completed' },
+  { id: 'TRP-0838', bus: '104-B', route: 'Gazipur → Campus', helper: 'Karim Hossain', date: '5 Jul 2026', startTime: '6:10 AM', endTime: '7:05 AM', duration: '55 min', passengers: 44, distance: 28, status: 'Completed' },
+  { id: 'TRP-0837', bus: '101-A', route: 'Mirpur → Campus', helper: 'Rahim Uddin', date: '5 Jul 2026', startTime: '6:28 AM', endTime: '7:52 AM', duration: '84 min', passengers: 40, distance: 18, status: 'Completed' },
+  { id: 'TRP-0836', bus: '106-E', route: 'Tongi → Campus', helper: 'Hafiz Rahman', date: '5 Jul 2026', startTime: '7:00 AM', endTime: '—', duration: '—', passengers: 0, distance: 0, status: 'Cancelled' },
 ];
 
 export function TripHistory() {
@@ -22,7 +22,7 @@ export function TripHistory() {
   );
 
   const totalPassengers = trips.filter(t => t.status === 'Completed').reduce((s, t) => s + t.passengers, 0);
-  const totalRevenue = trips.filter(t => t.status === 'Completed').reduce((s, t) => s + t.revenue, 0);
+  const totalDistance = trips.filter(t => t.status === 'Completed').reduce((s, t) => s + t.distance, 0);
 
   return (
     <div className="space-y-6">
@@ -31,7 +31,7 @@ export function TripHistory() {
           { label: 'Total Trips', value: String(trips.length), icon: Bus, color: 'text-[#3B82F6]' },
           { label: 'Completed', value: String(trips.filter(t => t.status === 'Completed').length), icon: Bus, color: 'text-[#22C55E]' },
           { label: 'Total Passengers', value: totalPassengers.toLocaleString(), icon: Users, color: 'text-[#F59E0B]' },
-          { label: 'Total Revenue', value: `৳${totalRevenue.toLocaleString()}`, icon: Banknote, color: 'text-[#8B5CF6]' },
+          { label: 'Distance Traveled', value: `${totalDistance.toLocaleString()} km`, icon: Route, color: 'text-[#8B5CF6]' },
         ].map(k => (
           <div key={k.label} className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5">
             <p className="text-slate-400 text-sm">{k.label}</p>
@@ -54,7 +54,7 @@ export function TripHistory() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-slate-800">
-                {['Trip ID', 'Bus / Route', 'Helper', 'Date', 'Duration', 'Passengers', 'Revenue', 'Status'].map(h => (
+                {['Trip ID', 'Bus / Route', 'Helper', 'Date', 'Duration', 'Passengers', 'Distance', 'Status'].map(h => (
                   <th key={h} className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                 ))}
               </tr>
@@ -82,8 +82,8 @@ export function TripHistory() {
                       <Users className="w-3.5 h-3.5 text-slate-500" /> {trip.passengers}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-[#22C55E] font-semibold text-sm">
-                    {trip.revenue > 0 ? `৳${trip.revenue}` : '—'}
+                  <td className="px-6 py-4 text-[#8B5CF6] font-semibold text-sm">
+                    {trip.distance > 0 ? `${trip.distance} km` : '—'}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${trip.status === 'Completed' ? 'text-[#22C55E] bg-[#22C55E]/10' : 'text-[#EF4444] bg-[#EF4444]/10'}`}>
