@@ -303,9 +303,7 @@ export function AdminDashboard() {
           </div>
 
           {/* Scrollable bus list */}
-          <div
-            className="divide-y divide-slate-800 overflow-y-auto h-[334px]"
-          >
+          <div className="divide-y divide-slate-800 overflow-y-auto h-[334px]">
             {fleetBuses.map((bus) => {
               const cfg = statusCfg[bus.status] ?? statusCfg["idle"];
               const occ =
@@ -472,54 +470,6 @@ export function AdminDashboard() {
           </div>
 
           {/* Operations Snapshot */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-white font-semibold">Operations Snapshot</h3>
-                <p className="text-slate-400 text-xs mt-0.5">
-                  Key indicators for the current service window
-                </p>
-              </div>
-              <span className="text-[#22C55E] bg-[#22C55E]/10 text-xs font-semibold px-3 py-1 rounded-full">
-                Live data
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-              {operationsSnapshot.map((item) => (
-                <div
-                  key={item.label}
-                  className="bg-[#1E293B] border border-slate-800 rounded-2xl p-5 h-[170px] w-full flex flex-col justify-between"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-slate-400 text-xs font-medium uppercase tracking-wide">
-                        {item.label}
-                      </p>
-                      <p className="text-white text-2xl font-bold mt-2">
-                        {item.value}
-                      </p>
-                    </div>
-                    <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${item.bg}`}
-                    >
-                      <item.icon className={`w-5 h-5 ${item.color}`} />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-slate-500 text-xs">{item.detail}</p>
-                    {item.progress !== null && (
-                      <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mt-2">
-                        <div
-                          className={`h-full rounded-full ${item.color.replace("text-", "bg-")}`}
-                          style={{ width: `${item.progress}%` }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
       </div>
     </div>
